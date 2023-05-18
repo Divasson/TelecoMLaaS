@@ -1,0 +1,33 @@
+{% extends "crearModelos/entrenarModelosTemplate.html" %}
+
+{% block params %}
+
+        <h4>
+        <i class="fas fa-exclamation" style="color:black;"></i>
+          Modo Experto: Elegir los parámetros del modelo a entrenar
+        </h4>
+        <br>
+        <p>
+          <b>Si no sabes qué parámetros poner, déjalos como están</b>
+        </p>
+        <br>
+        <form method="post">
+            {% csrf_token %}
+            {{ formulario.as_p }}
+            <p>
+            <input type="submit" value="Modo Experto: Entrenar el modelo {{modeloSeleccionado}} con los parámetros seleccionados">
+            </p>
+       
+        </form>
+        <br>
+        <br>
+
+        <form method="post" action="/modelsProject/entrenarModelos/{{proyecto.id}}/{{modeloSeleccionado}}">
+          {% csrf_token %}
+          <p>
+            <i class="fas fa-star"></i>
+          <input type="submit" value="Modo Normal: Entrenar el modelo de la mejor manera {{modeloSeleccionado}}">
+          </p>
+     
+      </form>
+{% endblock %}

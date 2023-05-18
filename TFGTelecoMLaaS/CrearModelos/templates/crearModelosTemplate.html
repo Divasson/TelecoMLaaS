@@ -1,0 +1,61 @@
+{% extends "projectTemplate.html" %}
+
+{% block header%}
+<div class="container d-flex align-items-center" >
+    
+    <h1 class="logo me-auto"><a href="/index.html">TFG MLaaS</a></h1>
+    <nav id="navbar" class="navbar order-first order-lg-0">
+      <ul>
+        <li><a href="/projects/">Tus Proyectos</a></li>
+        <li><a href="/projects/createProject/">Crear un Nuevo proyecto</a></li>
+        <li><a href="#">Tu cuenta</a></li>
+      </ul>
+    </nav>
+    <a href="/authenticate/logout/" class="log-out-btn" style="width:auto">Salir</a>
+
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top:1%">
+    <a class="navbar-brand" href="#">
+      <b><h4>{{proyecto.projectName}} - {% if tipo == "regresión" %}<span style="color:blue">{% else %}<span style="color:#009920">{% endif %} {{tipo|title}} </span></h4></b>
+    </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item ">
+            <a class="nav-link" style="color:black" href="/initProject/analisisDescriptivo/visualizarDatos/{{proyecto.id}}/1">
+              Análisis Descriptivo / Cambiar Datos 
+              <i class="fas fa-check" style="color:black"></i></a>
+              
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" style="color:black" href ="/modelsProject/{{proyecto.id}}/1">
+              {% if is_ensemble %}
+              Elegir/entrenar modelos
+              {% else %}
+              <b>Elegir/entrenar modelos</b>
+              {% endif %}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="IrAVizMenu" style="color:black" href="/vizProject/{{proyecto.id}}">
+              Modelos entrenados
+            </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" id="IrAEnsembleMenu" style="color:black" href="/modelsProject/crearEnsemble/{{proyecto.id}}">
+                {% if is_ensemble %}
+                <b>Crear Ensembles</b>
+                {% else %}
+                Crear Ensembles
+                {% endif %}
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" style="color:black" href="/prediction/{{proyecto.id}}" >Predecir</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+{% endblock %}

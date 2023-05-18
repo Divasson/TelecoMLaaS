@@ -1,0 +1,48 @@
+{% extends "projectTemplate.html" %}
+
+{% block header%}
+<div class="container d-flex align-items-center" >
+    
+    <h1 class="logo me-auto"><a href="/index.html">TFG MLaaS</a></h1>
+    <nav id="navbar" class="navbar order-first order-lg-0">
+      <ul>
+        <li><a href="/projects/">Tus Proyectos</a></li>
+        <li><a href="/projects/createProject/">Crear un Nuevo proyecto</a></li>
+        <li><a href="#">Tu cuenta</a></li>
+      </ul>
+    </nav>
+    <a href="/authenticate/logout/" class="log-out-btn" style="width:auto">Salir</a>
+
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-top:1%">
+      <a class="navbar-brand">
+        {% if not tipo %}
+        <b><h4>{{proyecto.projectName}} </h4></b>
+        {% else %}
+        <b><h4>{{proyecto.projectName}} - {% if tipo == "regresión" %}<span style="color:blue">{% else %}<span style="color:#009920">{% endif %} {{tipo|title}} </span></h4></b>
+        {% endif %}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" style="color:black"><b>Análisis Descriptivo <span class="sr-only">(current)</span></b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" >Elegir/entrenar modelos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" >Modelos entrenados</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link disabled" >(Crear Ensembles)</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link disabled" >Descargar</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+{% endblock %}

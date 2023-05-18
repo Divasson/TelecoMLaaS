@@ -1,0 +1,1 @@
+This app is for the creation or selection of existing projects for a specific user

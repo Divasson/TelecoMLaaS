@@ -1,0 +1,116 @@
+{% extends "crearModelosTemplate.html" %}
+
+{% block main %}
+
+
+{% if modelo_recien_entrenado_confirmacion %}
+<script>
+  alert("El modelo se ha entrenado bien");  
+</script>
+{% endif %}
+
+
+
+{% if lista_modelosEntrenados|length == lista_modelos|length %}
+  <div class="alert alert-warning" style="text-align:center">
+    Ya has entrenado todos los modelos
+    <br>
+    Si entrenas este modelo otra vez, se reescribirá el anterior
+    <br>
+
+    <button type="button" id="irAViz" onclick="window.location.href='/vizProject/{{proyecto.id}}';">Pincha aquí para visualizar los modelos</button>
+  </div>
+
+  <script>
+    var spinnerContainer = document.getElementById('spinner-container');
+    var spinner = document.getElementById('spinner');
+    $('#irAViz').click(function(){
+      spinnerContainer.style.display = 'block';
+      spinner.style.display = 'block';
+    })
+    $('#irAVizMenu').click(function(){
+      spinnerContainer.style.display = 'block';
+      spinner.style.display = 'block';
+    })
+    window.onload = function() {
+      // Hide the spinner
+      spinnerContainer.style.display = 'none';
+      spinner.style.display = 'none';
+    };
+
+
+  </script>
+
+{% else %}
+
+  {% if modeloSeleccionado in lista_modelosEntrenados %}
+    <div class="alert alert-warning" style="text-align:center">
+      Este modelo de Machine Learning ya ha sido entrenado en este proyecto
+      <br>
+      Si lo entrenas otra vez, se reescribirá el anterior
+      <br>
+      <button type="button" onclick="window.location.href='/modelsProject/entrenarModelos/{{proyecto.id}}/{{siguienteModelo}}';">
+        No reescribir y pasar al siguiente modelo
+      </button>
+    </div>
+  {% endif %}
+  
+{% endif %}
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Elegir y entrenar modelos de {{tipo}}</h4>
+          Version de los datos de: <br>{{proyecto.get_version_datos}}
+
+        </div>
+        <div class="list-group list-group-flush">
+          <a href = "/modelsProject/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+            Elegir modo de entrenar</a>
+            <a href = "/modelsProject/elegirModelos/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+              Elegir modelos de {{tipo}}</a>
+            <a href = "/modelsProject/preprocesado/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+                Train-Test Split
+            </a>
+        </div>
+        <div class="sidebar-heading">
+          <h6 style="color:black"><b>Entrenar modelos de {{tipo}}</b></h6>
+        </div>
+        <div class="list-group list-group-flush">
+          {% for modelo in lista_modelos %}
+            <a href = "/modelsProject/entrenarModelos/{{proyecto.id}}/{{modelo}}" class="list-group-item list-group-item-action bg-light">
+                           
+              {% if modelo == modeloSeleccionado %}
+              <b>{{modelo}}</b>
+              {% else %}
+              {{modelo}}
+              {% endif %}
+              {% if modelo in lista_modelosEntrenados %}
+              &nbsp {% comment %} (entrenado) {% endcomment %} &nbsp<b><i class="fas fa-check" style="color:black"></i></b>
+              {% endif %}
+              
+            </a>
+          {% endfor %}
+          </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Entrenar modelo {{modeloSeleccionado}}</h1>
+        &nbsp
+        <div id="params">
+          {% block params %}{% endblock %}
+          
+        </div>
+        <div id="spinner-container" style="display:none">
+          <div id="spinner" >
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+
+  
+
+{% endblock %}

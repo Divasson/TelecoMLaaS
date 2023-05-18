@@ -1,0 +1,48 @@
+{% extends "crearModelosTemplate.html" %}
+
+{% block main %}
+
+{% if Ensemble_1_selected %}
+<div class="alert alert-warning">
+  Tienes que elegir más de 1 modelo entrendado
+</div>
+{% endif %}
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Crear Ensembles de tus modelos</h4>
+          Version de los datos de: <br>{{proyecto.get_version_datos}}
+        </div>
+        <div class="list-group list-group-flush">
+          <a href = "" class="list-group-item list-group-item-action bg-light">
+            <b>Elegir modelos para crear el Ensemble</b></a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Elegir para juntarlos</h1>
+        &nbsp
+        Se recomienda coger solo los mejores
+        <form method="post">
+          {% csrf_token %}
+          <label for="{{formulario.modelos.id_for_label}}">Elegir más de un modelo entrenado de {{tipo}}: </label>
+            <br>    
+            {{ formulario.modelos }}      
+              <br>
+          <input type="submit" value="Seleccionar">
+     
+        </form>
+        {% if ensembleYaElegido %}
+        <br>
+        <br>
+        <button type="button" onclick="window.location.href='/vizProject/{{proyecto.id}}';">No reescribir el ensemble ya creado y visualizar modelos</button>
+        {% endif %}
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

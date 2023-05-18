@@ -1,0 +1,285 @@
+{% extends "vizModelosTemplate.html" %}
+
+{% block main %}
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Comparar modelos de {{tipo}}</h4>
+          Version de los datos de: <br>{{proyecto.get_version_datos}}
+        </div>
+        <div class="list-group list-group-flush">
+          {% for modelo,acc in dict_modelosEntrenados.items %}
+            <a href = "/vizProject/{{proyecto.id}}/{{modelo}}" id="botonCambiarVizModelo" class="list-group-item list-group-item-action bg-light">
+            {% if modelo == modeloSeleccionado %}
+				      <b> 
+					      Modelo #{{forloop.counter}}: {{modelo}} 
+					      <br>
+					      ({{nombre_metrica}}={{acc}})
+				      </b>
+
+            {% else %}
+              Modelo #{{forloop.counter}}: {{modelo}} 
+				      <br>
+				      ({{nombre_metrica}}={{acc}})
+              
+            {% endif %}
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        
+        <!-- spinner-->
+        <div id="spinner-container" style="display:none">
+          <div id="spinner" >
+          </div>
+        </div>
+
+        <script>
+          var spinnerContainer = document.getElementById('spinner-container');
+		      var spinner = document.getElementById('spinner');
+          spinnerContainer.style.display = 'block';
+		      spinner.style.display = 'block';
+          window.onload = function() {
+            // Hide the spinner
+            spinnerContainer.style.display = 'none';
+            spinner.style.display = 'none';
+          };
+        </script>
+        <!-- /spinner-->
+
+        <h1>Modelo {{modeloSeleccionado}} resultante</h1>
+        &nbsp
+
+        
+        Funcionamiento del modelo con datos de Test
+        
+
+        {% if optuna %}
+        <!--------------------------------- DENTRO DE OPTUNA ---------------------------------->
+        <a class="btn btn-primary" id="optunaButton">
+          Experto: Dibujar graficas de elegir hiperparámetros
+        </a>
+
+
+        <div id="optuna" class="collapse" style="width:100%">
+          <br>
+          <br>
+          <div style="display: flex; flex-direction: row;">
+            <div style="flex-basis: 50%;">
+            {{figura_optuna_entrenamiento|safe}}
+            </div>
+            <div style="flex-basis: 50%;">
+            {{figura_optuna_importanciaParams|safe}}
+            </div>
+          </div>
+          <br>
+          
+          {% if model_params %}
+            <h4><b>Tabla de parámetros del modelo</b></h4>
+            <div style="display: flex; flex-direction: row;">
+              <table class="table">
+                <tbody>
+                {% for key,value in model_params.items %}
+                <tr>
+                  <td scope="row">{{key}}</td>
+                  <td scope="row">{{value}}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+          </div>
+        <script>
+          // Add a click listener to the first button
+          $('#optunaButton').click(function() {
+            // Hide the content if it is currently visible
+            if ($('#optuna').hasClass('show')) {
+              $('#modelPlots').addClass('show');
+              $('#optuna').removeClass('show');
+              $('#complexmodelPlots').removeClass('show');
+            }
+            // Show the content if it is currently hidden
+            else {
+              $('#optuna').addClass('show');
+              $('#modelPlots').removeClass('show');
+              $('#complexmodelPlots').removeClass('show');
+            }
+          });
+        
+          // Add a click listener to the second button
+          $('#modelPlotsButton').click(function() {
+            // Hide the content if it is currently visible
+            if ($('#modelPlots').hasClass('show')) {
+              $('#complexmodelPlots').addClass('show');
+              $('#optuna').removeClass('show');
+              $('#modelPlots').removeClass('show'); 
+            }
+            // Show the content if it is currently hidden
+            else {
+              $('#modelPlots').addClass('show');
+              $('#optuna').removeClass('show');
+              $('#complexmodelPlots').removeClass('show');
+            }
+          });
+
+            $('#complexmodelPlotsButton').click(function() {
+              // Hide the content if it is currently visible
+              if ($('#complexmodelPlotsButton').hasClass('show')) {
+                $('#modelPlots').addClass('show');
+                $('#optuna').removeClass('show');
+                $('#complexmodelPlots').removeClass('show');
+              }
+              // Show the content if it is currently hidden
+              else {
+                $('#complexmodelPlots').addClass('show');
+                $('#optuna').removeClass('show');
+                $('#modelPlots').removeClass('show');
+              }
+          });
+        </script>
+
+        {% else %}
+        <!--------------------------------- NO HAY OPTUNA ---------------------------------->
+        <script>
+          $('#modelPlotsButton').click(function() {
+            // Hide the content if it is currently visible
+            if ($('#modelPlots').hasClass('show')) {
+              $('#complexmodelPlots').addClass('show');
+              $('#modelPlots').removeClass('show'); 
+            }
+            // Show the content if it is currently hidden
+            else {
+              $('#modelPlots').addClass('show');
+              $('#complexmodelPlots').removeClass('show');
+            }
+          });
+
+            $('#complexmodelPlotsButton').click(function() {
+              // Hide the content if it is currently visible
+              if ($('#complexmodelPlotsButton').hasClass('show')) {
+                $('#modelPlots').addClass('show');
+                $('#complexmodelPlots').removeClass('show');
+              }
+              // Show the content if it is currently hidden
+              else {
+                $('#complexmodelPlots').addClass('show');
+                $('#modelPlots').removeClass('show');
+              }
+          });
+        </script>
+
+        {% endif %}
+
+        <!--------------------------------- PLOTS FÁCILES ---------------------------------->
+        <div id="modelPlots" class="collapse show" style="width:100%">
+          
+          <!-- Style for tooltip-->
+            <style>
+              #tooltip {
+                position: relative;
+                display: inline-block;
+              }
+              
+              #tooltip .tooltiptext {
+                visibility: hidden;
+                width: 80%;
+                background-color: #555;
+                color: #fff;
+                text-align: center;
+                border-radius: 6px;
+                padding: 0px 0;
+                position: absolute;
+                z-index: 1;
+                bottom: 100%;
+                left: 10%;
+                margin-left: 0;
+                opacity: 0;
+                transition: opacity 0.3s;
+              }
+              
+              #tooltip .tooltiptext::after {
+                content: "";
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                margin-left: 0px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: #555 transparent transparent transparent;
+              }
+              
+              #tooltip:hover .tooltiptext {
+                visibility: visible;
+                opacity: 1;
+              }
+              </style>
+              <!-- End Style for tooltip-->
+          <script>
+            var spinnerContainer = document.getElementById('spinner-container');
+            var spinner = document.getElementById('spinner');
+            $('#Redibujar').click(function(){
+              spinnerContainer.style.display = 'block';
+              spinner.style.display = 'block';
+            })
+            $('#botonCambiarVizModelo').click(function(){
+              spinnerContainer.style.display = 'block';
+              spinner.style.display = 'block';
+            })
+            window.onload = function() {
+              // Hide the spinner
+              spinnerContainer.style.display = 'none';
+              spinner.style.display = 'none';
+            };
+          </script>
+          <br>
+          <br>
+          <div style="display: flex; flex-direction: row;">
+            <div id="tooltip" style="flex-basis: 50%;">
+              <div id="tooltip" style="flex-basis: 50%;">
+                <center>
+                  <span class="tooltiptext">
+                    Relación entre los valores reales y los predichos. Deben estar cerca de la curva discontinua
+                  </span>
+                </center>
+                {{normal_plots.plot_prediction_reg|safe}}
+              </div>
+            </div>
+            <div id="tooltip" style="flex-basis: 50%;">
+              <center>
+                <span class="tooltiptext">
+                  Distribución de los errores que comete el modelo. Debe parecerse lo máximo a una normal, o ser más puntiaguda que la curva normal (verde)
+                </span>
+              </center>
+              {{normal_plots.plot_residuals|safe}}
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: row;">
+            <div style="flex-basis: 100%;">
+            {{normal_plots.compare_residuals|safe}}
+            </div>
+          </div>
+
+
+        </div>
+        <!--------------------- FUERA DE PLOTS FÁCILES -------------------------------------->
+
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

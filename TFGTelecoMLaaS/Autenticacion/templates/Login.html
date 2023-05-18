@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>Login</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180"    href="{% static 'assets/img/favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon/favicon-16x16.png' %}">
+  <link rel="manifest"                            href="{% static 'assets/img/favicon/site.webmanifest' %}">
+  <link rel="mask-icon"                           href="{% static 'assets/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  <!-- ======= Header ======= -->
+  {% include 'landingPageParts/topmenu.html' %}
+  <!-- End Header -->
+
+  <main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Inicia sesión o registrate</h2>
+        <p>
+          Para disfrutar de la potencia del Machine Learning sobre tus sets de datos, inicia sesión o regístrate
+          <br>Además, ¡es muy fácil!
+        </p>
+      </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- ======= Login Section ======= -->
+    <section id="login" class="login">
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="section-title">
+              <p class="text-center">Inicia sesión</p>
+            </div>
+            <form method="post">
+              {% csrf_token %}
+
+              <div>
+                <label for="{{ form.email.id_for_label }}">Email:</label>
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                  <p style="color:red;">{{ error }}</p>
+                {% endfor %}
+              </div>
+              <div>
+                <label for="{{ form.password.id_for_label }}">Password:</label>
+                {{ form.password }}
+                {% for error in form.password.errors %}
+                  <p style="color:red;">{{ error }}</p>
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                <div style="color:red;">{{ form.non_field_errors }}</div>
+                {% endif %}
+              </div>
+              <div class="text-center mt-5">
+              <button type="submit"  class="btn btn-outline-dark">Iniciar Sesión</button>
+              </div>  
+            </form>
+            <form action="register/">
+              <input type="submit"  class="btn btn-outline-dark" value="Si no tienes cuenta, regístrate" />
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- End Contact Section -->
+  </main>
+  <!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'landingPageParts/footer.html' %}
+  <!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

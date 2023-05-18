@@ -1,0 +1,57 @@
+{% extends "projectChildren/analisisDescriptivo.html" %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Análisis descriptivo</h4></div>
+        <div class="list-group list-group-flush">
+            <a href = "/initProject/analisisDescriptivo/seleccionarVariable/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+                Cambiar variable a predecir
+            </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                <b>Confirmar tipo predicción</b>
+            </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                Cambiar tipos de datos
+            </a>
+            <a action = "#" class="list-group-item list-group-item-action bg-light">
+                Tratar datos que faltan
+            </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                Visualización de los datos
+            </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Seleccionar la variable a predecir</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <div>
+                <label for="{{ form.prediction_type.id_for_label }}">
+                    Confirmar que el tipo de prediccion es 
+                    {% if tipoPred %}
+                        Clasificacion:
+                    {% else %}
+                        Regresion:
+                    {% endif %}
+                </label>
+                {{ form.prediction_type }}
+                {% for error in form.prediction_type.errors %}
+                    <p style="color:red;">{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-5">
+            <button type="submit"  class="btn btn-outline-dark">Confirmar tipo prediccion</button>
+            </div>  
+          </form>
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

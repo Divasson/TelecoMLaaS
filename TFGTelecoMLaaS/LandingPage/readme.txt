@@ -1,0 +1,1 @@
+This app is for the general menu and the static files

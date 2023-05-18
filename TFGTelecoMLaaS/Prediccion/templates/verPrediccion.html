@@ -1,0 +1,42 @@
+{% extends "predecirTemplate.html" %}
+
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Predecir datos</h4>
+          Version de los datos para crear los modelos: <br>{{proyecto.get_version_datos}}
+        </div>
+        <div class="list-group list-group-flush">
+          <a href = "" class="list-group-item list-group-item-action bg-light">
+            
+          </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+
+        <h1>Seleccionar modelo para predecir</h1>
+        <br>
+        Están ordenados por lo buenos que son
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label> Selecciona un modelo con el que quieras la prediccion </label>
+            <br>
+            {{formulario.modeloPredecir}} 
+            <button type="submit">Predecir y descargar</button>
+          </div>
+        </form>
+
+
+
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

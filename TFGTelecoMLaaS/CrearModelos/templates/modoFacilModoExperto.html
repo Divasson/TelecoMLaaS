@@ -1,0 +1,105 @@
+{% extends "crearModelosTemplate.html" %}
+
+{% block main %}
+
+{% comment %} {% if modelosYaElegidos %}
+<div class="alert alert-warning">
+  Ya has elegido modelos de predicción para este proyecto
+  <br>
+  Si los eliges otra vez, se reescribirán a los anteriores
+</div>
+{% endif %} {% endcomment %}
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading">
+          <br>
+          <h4>Elegir modo de entrenar</h4>
+          Version de los datos de: <br>{{proyecto.get_version_datos}}
+
+        </div>
+        <div class="list-group list-group-flush">
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                <b>Elegir modo de entrenar</b></a>
+            <a href = "/modelsProject/elegirModelos/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+                  Elegir modelos de {{tipo}}
+            </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                Train-Test split
+            </a>
+            
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+              Entrenar modelos de {{tipo}}
+            </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Elegir modo de entrenar</h1>
+        &nbsp
+        <form method="post">
+          {% csrf_token %}
+          {{ formularioModo.as_p }}
+              <br>
+          <button id="my-button" type="submit"> Confirmar</button>
+     
+        </form>
+
+
+        <div id="spinner-container" style="display:none">
+          <div id="spinner" >
+          </div>
+        </div>
+        <script>
+          // Get a reference to the spinner container element
+          var spinnerContainer = document.getElementById('spinner-container');
+          var spinner = document.getElementById('spinner');
+        
+          // Hide the spinner container when the page first loads
+          spinnerContainer.style.display = 'none';
+          spinner.style.display = 'none'
+          // Get a reference to the button that starts the long process
+          var myButton = document.getElementById('my-button');
+          
+          
+          // token
+          var csrftoken = '{{ csrf_token }}';
+        
+          // Attach a click event listener to the button
+          myButton.addEventListener('click', function(){
+            // Show the spinner container
+        
+            console.log("hola")
+            spinnerContainer.style.display = 'block';
+            spinner.style.display = 'block';
+        
+            
+            
+            // Make an AJAX request to start the long process on the backend
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST','/modelsProject/{{proyecto.id}}',true);
+            xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");   
+            
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4 && xhr.status === 200) {
+                // Hide the spinner container when the request is complete
+                spinnerContainer.style.display = 'none';
+                spinner.style.display = 'none';
+              }
+            };
+            xhr.send({'csrfmiddlewaretoken':csrf_token});
+          });
+        </script>
+
+
+
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

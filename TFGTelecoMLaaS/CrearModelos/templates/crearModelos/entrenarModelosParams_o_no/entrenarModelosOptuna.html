@@ -1,0 +1,78 @@
+{% extends "crearModelos/entrenarModelosTemplate.html" %}
+
+{% block params %}
+
+
+
+	<h4>
+		Entrenar modelo con los mejores hiperparámetros
+	</h4>
+	
+	<form id="form-optuna" method="post" action="/modelsProject/entrenarModelos/{{proyecto.id}}/{{modeloSeleccionado}}">
+		{% csrf_token %}
+		<p> 
+			<button id="my-button"> 
+				{% if modeloSeleccionado in lista_modelosEntrenados %}
+				Reentrenar el modelo {{modeloSeleccionado}} automáticamente
+				{% else %}
+				Aceptar y entrenar el modelo {{modeloSeleccionado}} con los mejores hiperparámetros
+				{% endif %}
+			</button>
+	 	</p>
+	</form> 
+	<br>
+	<br>
+	<form method="GET" action="/modelsProject/entrenarModelosConParams/{{proyecto.id}}/{{modeloSeleccionado}}">
+		{% csrf_token %}
+		<p>
+			<input type="submit" value="Modo Experto: Entrenarlo eligiendo los hiperparámetros">
+		</p>
+	</form>
+	<div id="spinner-container" style="display:none">
+		<div id="spinner" >
+		</div>
+	</div>
+	
+
+	<script>
+		// Get a reference to the spinner container element
+		var spinnerContainer = document.getElementById('spinner-container');
+		var spinner = document.getElementById('spinner');
+	
+		// Hide the spinner container when the page first loads
+		spinnerContainer.style.display = 'none';
+		spinner.style.display = 'none'
+		// Get a reference to the button that starts the long process
+		var myButton = document.getElementById('my-button');
+		var formOptuna = document.getElementById('form-optuna')
+		
+		// token
+		var csrftoken = '{{ csrf_token }}';
+	
+		// Attach a click event listener to the button
+		myButton.addEventListener('click', function(){
+			// Show the spinner container
+	
+			console.log("hola")
+			spinnerContainer.style.display = 'block';
+			spinner.style.display = 'block';
+	
+			
+			
+			// Make an AJAX request to start the long process on the backend
+			var xhr = new XMLHttpRequest();
+			xhr.open('POST','/modelsProject/entrenarModelos/{{proyecto.id}}/{{modeloSeleccionado}}',true);
+			xhr.setRequestHeader('X-CSRFToken', csrftoken);
+			xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");   
+			
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					// Hide the spinner container when the request is complete
+					spinnerContainer.style.display = 'none';
+					spinner.style.display = 'none';
+				}
+			};
+			xhr.send({'csrfmiddlewaretoken':csrf_token});
+		});
+	</script>
+{% endblock %}

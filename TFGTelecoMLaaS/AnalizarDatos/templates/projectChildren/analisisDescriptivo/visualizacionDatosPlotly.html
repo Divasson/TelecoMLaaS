@@ -1,0 +1,51 @@
+{% extends "projectChildren/analisisDescriptivo.html" %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Análisis descriptivo</h4>
+        Version de los datos de: <br>{{proyecto.get_version_datos}}
+        </div>
+        <div class="list-group list-group-flush">
+          <a href = "/initProject/analisisDescriptivo/seleccionarVariable/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+            Cambiar variable a predecir</a>
+          <a href = "/initProject/analisisDescriptivo/tipoPrediccion/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+            Confirmar tipo predicción
+          </a>
+          <a href = "/initProject/analisisDescriptivo/confirmarDatos/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+              Cambiar tipos de datos
+          </a>
+          <a action = "/initProject/analisisDescriptivo/tratarNa/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+            Cambiar el trato a los datos que faltan
+          </a>
+          <a href = "#" class="list-group-item list-group-item-action bg-light">
+            <form method="post">
+              {% csrf_token %}
+              <b>Seleccione las variables a comparar en el plot</b>
+              <br>
+              <label for="{{formulario.var_1.id_for_label}}">Variable 1: </label>
+              {{ formulario.var_1 }}
+              <br>
+              <label for="{{formulario.var_2.id_for_label}}">Variable 2: </label>
+              {{ formulario.var_2 }}           
+              <br>   
+              <input type="submit" value="Dibujar">
+            </form>
+          </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Visualizaciones dinámicas</h1>
+        {{figure|safe}}
+        <form action="/modelsProject/{{proyecto.id}}">
+        <input href="/modelsProject/{{proyecto.id}}" value="Siguiente" type="Submit"class="btn btn-outline-dark">
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

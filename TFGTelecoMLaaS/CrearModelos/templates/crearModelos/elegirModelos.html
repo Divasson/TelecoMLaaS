@@ -1,0 +1,59 @@
+{% extends "crearModelosTemplate.html" %}
+
+{% block main %}
+
+{% if modelosYaElegidos %}
+<div class="alert alert-warning">
+  Ya has elegido modelos de predicción para este proyecto
+  <br>
+  Si los eliges otra vez, se reescribirán a los anteriores
+</div>
+{% endif %}
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Elegir modelos de {{tipo}}</h4>
+          Version de los datos de: <br>{{proyecto.get_version_datos}}
+
+        </div>
+        <div class="list-group list-group-flush">
+          <a href = "/modelsProject/{{proyecto.id}}" class="list-group-item list-group-item-action bg-light">
+            Elegir modo de entrenar</a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                <b>Elegir modelos de {{tipo}}</b></a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                Train-Test split
+            </a>
+            
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+              Entrenar modelos de {{tipo}}
+            </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Elegir modelos de {{tipo}}</h1>
+        &nbsp
+        <form method="post">
+          {% csrf_token %}
+          <label for="{{formulario.modelos.id_for_label}}">Elegir uno o varios modelos de {{tipo}}: </label>
+            <br>    
+          {{ formulario.modelos }}      
+              <br>
+          <input type="submit" value="Seleccionar">
+     
+        </form>
+        {% if modelosYaElegidos %}
+        <br>
+        <br>
+        <button type="button" onclick="window.location.href='/modelsProject/preprocesado/{{proyecto.id}}/1';">No reescribir y pasar al siguiente paso</button>
+        {% endif %}
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

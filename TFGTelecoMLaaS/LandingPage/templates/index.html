@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+  
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>MLaaS</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180"    href="{% static 'assets/img/favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicon/favicon-16x16.png' %}">
+  <link rel="manifest"                            href="{% static 'assets/img/favicon/site.webmanifest' %}">
+  <link rel="mask-icon"                           href="{% static 'assets/img/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  {% include 'landingPageParts/topmenu.html' %}
+  <!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex justify-content-center align-items-center" >
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Saca partido a tus datos,<br>con la potencia de la Inteligencia Artificial</h1>
+      <h2>Tu subes los datos, nosotros hacemos el resto</h2>
+      <a href="#events" class="btn-get-started">Cómo funciona</a>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts section-bg">
+      <div class="container">
+
+        <div class="row counters">
+
+          
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="6" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Modelos de Regresión</p>
+          </div>
+
+          <div class="col-lg-3 col-6 text-center">
+            <span data-purecounter-start="0" data-purecounter-end="5" data-purecounter-duration="1" class="purecounter"></span>
+            <p>Modelos de Clasificación</p>
+          </div>
+          <div class="col-lg-3 col-6 text-center" style="display: flex; flex-direction: column; align-items: center">
+            <i class="fas fa-check" style="color:#35dba0;font-size:40px; margin-bottom: 10px; margin-top:5%"></i>
+            <p style="margin-top: 5px;">Con la posibilidad de que trabajen juntos</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section -->
+
+  
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+      <div class="container" data-aos="fade-up" id="comoFunciona">
+
+        <div class="section-title">
+          <h2>¿Cómo funciona?</h2>
+          <p>Pasos a dar en la applicación</p>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-img">
+                <img src="{% static 'Images/discoDuro.jpg' %}" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Crear el Proyecto</a></h5>
+                <p class="card-text">Crea un nuevo proyecto subiendo un set de datos a la applicación</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-img">
+                <img src="{% static 'Images/AnalisisDescriptivo.png' %}" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Análisis Descriptivo y tratamiento de datos</a></h5>
+                <p class="card-text">Con los datos del proyecto se proporcionará un análisis descriptivo de los mismos y a la vez se ofrecerá la posibilidad de elegir cómo tratar outliers y los datos que faltan</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-img">
+                <img src="{% static 'Images/artificial intelligence.jpg' %}" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Entrenar Modelos de Predicción</a></h5>
+                <p class="card-text">Estos modelos de predicción se podrán comparar posteriormente y se utilizarán para predecir tus nuevos datos
+                  <br>
+                  Si no sabes qué modelos quieres, ¡entrénalos todos!
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-img">
+                <img src="{% static 'Images/confusion matrix.jpg' %}" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Visualización del rendimiento de cada modelo</a></h5>
+                <p class="card-text">Se visualirará cada modelo para comparar</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-img">
+                <img src="{% static 'Images/Ensemble_unsplash.jpg' %}" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Posibilidad de hacer Ensembles</a></h5>
+                <p class="card-text">Se ofrecerá la posibilidad de hacer ensembles entre los modelos entrenados
+                  <br>
+                  Un ensemble es que los modelos trabajen juntos para así conseguir predecir mejor tus datos
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-img">
+                <img src="{% static 'Images/predict_growth.jpg' %}" alt="...">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><a href="">Predice con tus nuevos datos</a></h5>
+                <p class="card-text">Con los modelos ya entrenados, podrás predecir con tus nuevos datos y así predecir el futuro con más posibilidad de acierto</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Events Section -->
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  {% include 'landingPageParts/footer.html' %}
+  <!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

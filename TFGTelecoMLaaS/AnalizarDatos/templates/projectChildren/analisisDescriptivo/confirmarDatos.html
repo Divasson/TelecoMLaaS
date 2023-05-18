@@ -1,0 +1,98 @@
+{% extends "projectChildren/analisisDescriptivo.html" %}
+
+{% block main %}
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Análisis descriptivo</h4></div>
+        <div class="list-group list-group-flush">
+            <a href = "/initProject/analisisDescriptivo/seleccionarVariable/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+                Cambiar variable a predecir</a>
+            <a href = "/initProject/analisisDescriptivo/tipoPrediccion/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+              Confirmar tipo predicción
+            </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                <b>Confirmar tipos de datos</b>
+            </a>
+            <a action = "#" class="list-group-item list-group-item-action bg-light">
+              Tratar datos que faltan
+            </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                Visualización de los datos
+            </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Confirmar o cambiar tipos de datos</h1>
+        &nbsp
+        <h3>Parte de los datos del proyecto</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              {% for key in df.0 %}
+                <th>{{ key }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in df %}
+              <tr>
+                {% for key, value in row.items %}
+                  <td scope="row">{{ value }}</td>
+                {% endfor %}
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        &nbsp
+        <h3>Tipo de datos de cada columna</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              {% for col_name,col_type in dataTypes.items %}
+                <th>{{ col_name }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            
+              <tr>
+                {% for col_name,col_type in dataTypes.items %}
+                  <td scope="row">{{ col_type }}</td>
+                {% endfor %}
+              </tr>
+          </tbody>
+        </table>
+        &nbsp
+        <h3>Intentar cambiar el tipo de datos para cada columna</h3>
+        {% if errors %}<p style="color:red;">{{errors}}</p>{% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Guardar y continuar" class="btn btn-outline-dark">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Column name</th>
+                        <th>Data type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for nombrecampo,campo in form.get_fields %}  
+                    <tr>
+                        <td scope="row">{{ nombrecampo }}</td> 
+                        <td scope="row"> {{ campo }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </form>
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

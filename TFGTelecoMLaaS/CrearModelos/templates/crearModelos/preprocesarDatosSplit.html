@@ -1,0 +1,83 @@
+{% extends "crearModelosTemplate.html" %}
+
+{% block main %}
+
+{% if preprocesado_hecho %}
+<div class="alert alert-warning">
+  Ya has hecho esta partición
+  <br>
+  Si los eliges otra vez, se reescribirán a los anteriores
+</div>
+{% endif %}
+
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-3 col-lg-2 bg-light border-right" id="sidebar-wrapper">
+        <div class="sidebar-heading"><br><h4>Elegir modelos de {{tipo}}</h4>
+          Version de los datos de: <br>{{proyecto.get_version_datos}}
+
+        </div>
+        <div class="list-group list-group-flush">
+          <a href = "/modelsProject/{{proyecto.id}}" class="list-group-item list-group-item-action bg-light">
+            Elegir modo de entrenar</a>
+            <a href = "/modelsProject/elegirModelos/{{proyecto.id}}/1" class="list-group-item list-group-item-action bg-light">
+              Elegir modelos de {{tipo}}</a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                <b>Train-Test Split</b>
+            </a>
+            
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+              Confirmar tipo predicción
+            </a>
+            <a action = "#" class="list-group-item list-group-item-action bg-light">
+                Tratar datos que faltan
+              </a>
+            <a href = "#" class="list-group-item list-group-item-action bg-light">
+                Visualización de los datos
+            </a>
+        </div>
+      </div>
+      <!-- /#sidebar-wrapper -->
+
+      <!-- Content -->
+      <div class="col-md-9 col-lg-10">
+        <h1>Elegir train-test-val split </h1>
+        &nbsp
+        <p>
+        Las variables numéricas se van a normalizar de forma normal, y las variables categóricas se van a separar en función del número de parámetros
+        </p>
+        <p>
+        Ahora elige la separación de train-test-valiacion
+        </p>
+        &nbsp
+        &nbsp
+        <form method="post">
+            {% csrf_token %}
+            <label for="{{formulario.train_test_split.id_for_label}}">-Elegir % que no se va a utilizar para entrenar: </label>
+              
+            {{ formulario.train_test_split }}      
+                <br>
+            {% comment %} <label for="{{formulario.test_val_split.id_for_label}}">-Elegir % que se va a utilizar para validacion: </label>
+              
+            {{ formulario.test_val_split }}      
+                <br> {% endcomment %}
+            <p>
+            <input type="submit" value="Aceptar">
+            </p>
+       
+          </form>
+
+          {% if preprocesado_hecho %}
+          <br>
+          <br>
+          <button type="button" onclick="window.location.href='/modelsProject/entrenarModelos/{{proyecto.id}}';">No reescribir y pasar al siguiente paso</button>
+        {% endif %}
+
+        
+      </div> 
+    </div>
+  </div>
+
+{% endblock %}

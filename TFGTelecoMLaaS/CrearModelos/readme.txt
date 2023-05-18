@@ -1,0 +1,1 @@
+Esta app está para la creación de los modelos de Machine Learning, tanto para Regresion como Clasificación
