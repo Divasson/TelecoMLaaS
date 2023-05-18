@@ -56,6 +56,7 @@ def subirPrediccion(request,id_project):
                 data_transformed = data_transformed.toarray()
             except:
                 pass
+            
             df_original = project.sacar_dataframe_original()
         
             modeloML = ModelosMachineLearning.objects.filter(proyecto=project,name=nombreModeloSeleccionado).first()
@@ -84,7 +85,7 @@ def subirPrediccion(request,id_project):
     
     
 
-def hacerPrediccion(request,id_project):
+""" def hacerPrediccion(request,id_project):
     project= utils.isUserLoggedIn_or_hisProject(request,id_project)
     if type(project)!=type(Project()):
         return redirect('/projects/')
@@ -140,3 +141,4 @@ def hacerPrediccion(request,id_project):
     return render(request,"verPrediccion.html",context=context)
 
 
+ """
