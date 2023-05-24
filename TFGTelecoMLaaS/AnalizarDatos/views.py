@@ -201,7 +201,7 @@ def tratarNa(request,id_project,cambiarVar=None):
         
         if len(df[col].value_counts().tolist())==0:
             columnas_a_borrar[col] = "Representatividad"
-        elif (df[col].value_counts().tolist()[0] <= n_obsevaciones*0.3) :
+        elif (df[col].value_counts().tolist()[0] <= n_obsevaciones*0.1) :
             columnas_a_borrar[col] = "Representatividad"
         elif (len(df[col].unique()) ==1):
             columnas_a_borrar[col] = "1Val"

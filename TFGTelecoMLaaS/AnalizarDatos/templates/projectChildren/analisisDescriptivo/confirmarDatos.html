@@ -29,7 +29,7 @@
       <div class="col-md-9 col-lg-10">
         <h1>Confirmar o cambiar tipos de datos</h1>
         &nbsp
-        <h3>Parte de los datos del proyecto</h3>
+        <h3>Selección de algunos datos del proyecto</h3>
         <table class="table">
           <thead>
             <tr>
@@ -46,25 +46,6 @@
                 {% endfor %}
               </tr>
             {% endfor %}
-          </tbody>
-        </table>
-        &nbsp
-        <h3>Tipo de datos de cada columna</h3>
-        <table class="table">
-          <thead>
-            <tr>
-              {% for col_name,col_type in dataTypes.items %}
-                <th>{{ col_name }}</th>
-              {% endfor %}
-            </tr>
-          </thead>
-          <tbody>
-            
-              <tr>
-                {% for col_name,col_type in dataTypes.items %}
-                  <td scope="row">{{ col_type }}</td>
-                {% endfor %}
-              </tr>
           </tbody>
         </table>
         &nbsp

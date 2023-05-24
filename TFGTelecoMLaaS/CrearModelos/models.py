@@ -338,9 +338,7 @@ class ModelosMachineLearning(models.Model):
         self.set_supports_y_ohe()
         modelo = self.entrenarModeloConParams(nombremodelo=nombre_modelo_ml,
                                                 diccionarioParams=params)
-        self.save_modelo(modelo=modelo,
-                         id_proyecto=self.proyecto.id,
-                         nombreModelo=self.name)
+        self.save_modelo(modelo=modelo)
         
         self.save_balanced_score()
         

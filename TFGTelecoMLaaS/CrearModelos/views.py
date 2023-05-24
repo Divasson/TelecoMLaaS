@@ -81,6 +81,7 @@ def crearEnsemble(request,id_project):
         
     context = {}
     context["proyecto"]=project
+    context["tipo"] = project.get_tipo_prediccion()
     context["ensembleYaElegido"] = False
     
     dict_modelos_entrenados = {}

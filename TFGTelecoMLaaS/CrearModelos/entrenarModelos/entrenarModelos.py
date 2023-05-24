@@ -130,7 +130,7 @@ def train_LogisticRegression_optuna(modelo):
         multi_class = "ovr"
         #class_weight = "balanced"
     def objective(trial):
-        solver = trial.suggest_categorical("solver", ['lbfgs','liblinear', 'saga'])
+        solver = trial.suggest_categorical("solver", ['liblinear', 'saga'])
         C = trial.suggest_float("C",0.001,10)
         penalty = trial.suggest_categorical("penalty", ['l1', 'l2'])
         
@@ -144,7 +144,7 @@ def train_LogisticRegression_optuna(modelo):
     
     sampler = TPESampler(seed=0) # create a seed for the sampler for reproducibility
     study = optuna.create_study(direction="maximize", sampler=sampler)
-    study.optimize(objective, n_trials=20,n_jobs=2)
+    study.optimize(objective, n_trials=12,n_jobs=3)
     
     model = LogisticRegression(solver=study.best_params["solver"],
                                 C=study.best_params["C"],
@@ -173,8 +173,8 @@ def train_RandomForestClass_optuna(modelo):
 
     def objective(trial):
         criterion = trial.suggest_categorical("criterion", ["gini","entropy"])
-        n_estimators = trial.suggest_int("n_estimators",50,5000)
-        max_depth = trial.suggest_int("max_depth",150,1000)
+        n_estimators = trial.suggest_int("n_estimators",50,500)
+        max_depth = trial.suggest_int("max_depth",200,1000)
         min_samples_leaf = trial.suggest_int("min_samples_leaf",1,15)
         
         model = RandomForestClassifier(n_estimators = n_estimators,criterion = criterion,max_depth = max_depth,min_samples_leaf = min_samples_leaf)
