@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.contrib.auth.hashers import make_password
 
 # Create your models here.
 
@@ -12,8 +13,9 @@ class UsuarioManager(BaseUserManager):
         user = self.model(
                 email = self.normalize_email(email),
                 username=username,
+                password=make_password(password,salt="password")
             )
-        user.set_password(password)
+        #user.set_password(password)
         user.save(using=self._db)
         return user
     def create_superuser(self,email,username,password):

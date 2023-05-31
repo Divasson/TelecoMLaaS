@@ -12,7 +12,7 @@ def registro(request):
             form.save()
             email = form.cleaned_data['email']
             rawPassword = form.cleaned_data['password1']
-            usuario = authenticate(email=email,password= rawPassword)
+            usuario = authenticate(email=email,password= rawPassword )
             login(request,usuario)
             return redirect('/projects/')
         else:

@@ -37,7 +37,7 @@ def plotMultiple(df,variable1,variable2,variableColor):
     j["num1"]   = 1
     fig         = 0
     
-    print(df.dtypes)
+    print(variable1,variable2)
     
     if variable1==variable2:
         if np.issubdtype(df[variable1].dtype, np.number):
@@ -77,7 +77,7 @@ def plotMultiple(df,variable1,variable2,variableColor):
             else: 
                 fig = px.box(data_frame=j, y=variable2, x=variable1,orientation='v',
                             color=variable1,color_discrete_map=getColorsforVariable(df,variable1,colorATener),category_orders=getOrden(df,variable1))
-                fig.update_layout(title="Violin Plot de la distribucion de "+variable2+" por cada valor de "+variable1)
+                fig.update_layout(title="Box Plot de la distribucion de "+variable2+" por cada valor de "+variable1)
         else: 
             j[variable1] = j[variable1].astype("object")
             j[variable2] = j[variable2].astype("object")
@@ -118,7 +118,12 @@ def getOrden(df,variableColoreadaAOrdenar):
     """    
     df = df.copy()
     diccionario = {}
-    lista = list(np.sort(df[variableColoreadaAOrdenar].unique()))
+#    print(df[variableColoreadaAOrdenar].unique())
+    #print("Hola")
+    try:
+        lista = list(np.sort(df[variableColoreadaAOrdenar].unique()))
+    except:
+        lista = list((df[variableColoreadaAOrdenar].unique()))
     diccionario[variableColoreadaAOrdenar] = lista
     return diccionario
 

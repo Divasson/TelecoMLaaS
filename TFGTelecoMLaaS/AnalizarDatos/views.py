@@ -149,8 +149,7 @@ def confirm_data(request,id_project,cambiarVar=None):
                         df2[col] = pd.to_datetime(df2[col]).dt.normalize()
                     else:
                         df2[col] = df2[col].astype(form.cleaned_data[col])
-                if (not (df2.dtypes == df.dtypes).all()):  
-                    project.tiposDatosProcesados.save('project_{}_dtypes.json'.format(id_project), ContentFile(df2.dtypes.astype(str).to_json()))
+                project.tiposDatosProcesados.save('project_{}_dtypes.json'.format(id_project), ContentFile(df2.dtypes.astype(str).to_json()))
                 project.project_state = 3
                 project.save()
                 return redirect('/initProject/analisisDescriptivo/tratarNa/'+str(id_project))
@@ -186,7 +185,7 @@ def tratarNa(request,id_project,cambiarVar=None):
     context["tipo"]=project.get_tipo_prediccion()
     
     df = project.get_data(original=True)
-    print(df.isna().sum())
+    
     na_columns = df.columns[df.isna().sum() > 0].tolist()
     
     INPUTS = np.setdiff1d(df.columns,project.get_variable_a_predecir())
